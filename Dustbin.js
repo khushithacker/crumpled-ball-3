@@ -1,62 +1,65 @@
-class Dustbin
+class dustbin
 {
-	constructor(x, y)
+	constructor(x,y)
 	{
-		this.x = x;
-		this.y = y;
-		this.width = 200;
-		this.height = 213;
-		this.wallThickness = 20;
-		this.angle = 0;
-		this.image = loadImage("dustbingreen.png");
-
-		var options =
-		{
-			isStatic: true
-		}
-		this.bottomWall = Bodies.rectangle(this.x, this.y, this.width, this.wallThickness, options);
-
-		var xPos = this.x - (this.width / 2);
-		var yPos = this.y - (this.height / 2);
-		this.leftWall=Bodies.rectangle(xPos, yPos, this.wallThickness, this.height, options);
-		Body.setAngle(this.leftWall, this.angle);
-
-		xPos = this.x + (this.width / 2);
-		this.rightWall = Bodies.rectangle(xPos, yPos, this.wallThickness, this.height, options);
-		Body.setAngle(this.rightWall, -1 * this.angle);
+		this.x=x;
+		this.y=y;
+		this.dustbinWidth=200;
+		this.dustbinHeight=213;
+		this.wallThickness=20;
 		
-		World.add(world, this.bottomWall);
-		World.add(world, this.leftWall);
-		World.add(world, this.rightWall);
+		this.image=loadImage("dustbingreen.png")
+		this.bottomBody=Bodies.rectangle(this.x, this.y, this.dustbinWidth, this.wallThickness, {isStatic:true})
+		this.leftWallBody=Bodies.rectangle(this.x-this.dustbinWidth/2, this.y-this.dustbinHeight/2, this.wallThickness, this.dustbinHeight, {isStatic:true})
+		
+		
+
+		this.rightWallBody=Bodies.rectangle(this.x+this.dustbinWidth/2, this.y-this.dustbinHeight/2, this.wallThickness, this.dustbinHeight, {isStatic:true})
+		
+		World.add(world, this.bottomBody)
+		World.add(world, this.leftWallBody)
+		World.add(world, this.rightWallBody);
 
 	}
-	
 	display()
 	{
-			var posBottom = this.bottomWall.position;
-			var posLeft = this.leftWall.position;
-			var posRight = this.rightWall.position;
+			var posBottom=this.bottomBody.position;
+			var posLeft=this.leftWallBody.position;
+			var posRight=this.rightWallBody.position;
 
-			push();
+			
+
+			push()
 			translate(posLeft.x, posLeft.y);
-			fill(255);
-			angleMode(RADIANS);			
-			rotate(this.angle);
-			pop();
+			rectMode(CENTER)
+			//strokeWeight(4);
+			angleMode(RADIANS)
+			fill(255)
+			rotate(this.angle)
+			//rect(0,0,this.wallThickness, this.dustbinHeight);
+			pop()
 
-			push();
+			push()
 			translate(posRight.x, posRight.y);
-			fill(255);
-			angleMode(RADIANS);
-			rotate(-1 * this.angle);
-			pop();
+			rectMode(CENTER)
+			//strokeWeight(4);
+			angleMode(RADIANS)
+			fill(255)
+			rotate(-1*this.angle)
+			//rect(0,0,this.wallThickness, this.dustbinHeight);
+			pop()
 
-			push();
-			translate(posBottom.x, posBottom.y + 10);
-			fill(255);
-			angleMode(RADIANS);			
+			push()
+			translate(posBottom.x, posBottom.y+10);
+			rectMode(CENTER)
+			//strokeWeight(4);
+			angleMode(RADIANS)
+			fill(255)
 			imageMode(CENTER);
-			image(this.image, 0, -this.height / 2, this.width, this.height);
-			pop();
+			image(this.image, 0,-this.dustbinHeight/2,this.dustbinWidth, this.dustbinHeight)
+			//rect(0,0,this.dustbinWidth, this.wallThickness);
+			pop()
+			
 	}
+
 }
